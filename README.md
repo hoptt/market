@@ -1,40 +1,15 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+#1 프로젝트 개요
+대충 프로젝트 설명~
 
-## Getting Started
+#2 최적화
+검색창에 Throttle 적용하여 매 입력시 마다 요청이 가는것이 아닌
+특정 시간이 지날때마다 요청 보내도록 최적화
+※ useEffect 에서 실행되어 deps 의 inputText가 바뀔 때 마다 throttle 함수가 재생성되어
+원할히 동작하지 않던 문제를 useMemo 로 감싸서 해결
 
-First, run the development server:
+Optimistic UI 로 사용자 경험 향상
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+인피니티 스크롤에서 목록을 불러올 때마다 불러온 모든 요소가 렌더링되어 성능에 문제
+Virtualized 사용하여 현재 보이는 viewport 영역만 렌더링되도록
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
-
-You can start editing the page by modifying `pages/index.tsx`. The page auto-updates as you edit the file.
-
-[API routes](https://nextjs.org/docs/api-routes/introduction) can be accessed on [http://localhost:3000/api/hello](http://localhost:3000/api/hello). This endpoint can be edited in `pages/api/hello.ts`.
-
-The `pages/api` directory is mapped to `/api/*`. Files in this directory are treated as [API routes](https://nextjs.org/docs/api-routes/introduction) instead of React pages.
-
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
-
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+채팅영역은 supabase 의 realtime 기능 사용하여 실시간 갱신되도록 설정
