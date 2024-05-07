@@ -12,4 +12,4 @@ Optimistic UI 로 사용자 경험 향상
 인피니티 스크롤에서 목록을 불러올 때마다 불러온 모든 요소가 렌더링되어 성능에 문제
 Virtualized 사용하여 현재 보이는 viewport 영역만 렌더링되도록
 
-채팅영역은 supabase 의 realtime 기능 사용하여 실시간 갱신되도록 설정
+채팅영역은 supabase 의 realtime 기능으로 DB 업데이트 감지하여 실시간 갱신되도록 설정

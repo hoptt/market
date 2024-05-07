@@ -35,14 +35,16 @@ export default function ProductList({ initialProducts = [] }: Props) {
       if (inView) {
         const data = await handleGetProducts({
           fromPage: page,
-          toPage: page + 1,
+          toPage: page + 2,
         });
         if (data.length === 0) {
           setIsLastPage(true);
           return;
         }
-        setProducts((prev) => [...prev, ...data]);
-        setPage((page) => page + 1);
+        if (page !== 0) {
+          setProducts((prev) => [...prev, ...data]);
+        }
+        setPage((page) => page + 2);
       }
     })();
   }, [inView]);
@@ -69,7 +71,7 @@ export default function ProductList({ initialProducts = [] }: Props) {
         </div>
       )}
       {!isLastPage && products.length > 0 && products.length < 100 && (
-        <div ref={ref} style={{ height: 20, backgroundColor: "red" }} />
+        <div ref={ref} />
       )}
     </div>
   );
