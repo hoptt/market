@@ -21,7 +21,7 @@ export default function Header({ children }: Props) {
                   size="4xl"
                   style={{ fontFamily: `'Black Han Sans','sans-serif'` }}
                 >
-                  📣 중고장터11
+                  📣 중고장터
                 </Text>
               </a>
             </Link>
