@@ -1,7 +1,5 @@
 FROM node:18
 
-RUN npm install -g yarn
-
 COPY package*.json ./
 
 RUN yarn install
