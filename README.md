@@ -14,10 +14,18 @@ Virtualized 사용하여 현재 보이는 viewport 영역만 렌더링되도록
 
 채팅영역은 supabase 의 realtime 기능으로 DB 업데이트 감지하여 실시간 갱신되도록 설정
 
+상품정보 영역 한번에 로딩하는것이 아닌 Parallel Routes 로 페이지 나눠서 로딩 처리하여 사용자 경혐 향상
+
 vercel 배포
 
-github-actions 배포
+github-actions + EC2 배포
 Amazon EC2, Nginx, PM2
 deploy-to-ec2.yml 파일에 설정한대로 main 에 push 될때마다 수행
 따로 서버 EC2 를 만들었으므로 runs-on: self-hosted
 steps 순으로 프로세스들 수행
+
+github-actions + docker + elastic beanstalk 배포
+Amazon Elastic Beanstalk, docker hub
+github-actions + EC2 배포 에 비해서 정형화되고 더 쉬운 플로우
+
+cypress 사용하여 E2E Test 진행

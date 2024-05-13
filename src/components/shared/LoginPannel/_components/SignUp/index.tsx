@@ -1,3 +1,5 @@
+"use client";
+
 import Button from "@/components/common/Button";
 import Input from "@/components/common/Input";
 import supabase from "@/utils/supabase/browserSupabase";

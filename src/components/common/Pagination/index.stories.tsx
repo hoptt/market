@@ -16,8 +16,6 @@ export const DefaultPagination: Story = {
   args: {
     currentPage: 1,
     count: 100,
-    handlePageChange: (pageNumber: number) => {
-      console.log(pageNumber);
-    },
+    handlePageChange: (pageNumber: number) => {},
   },
 };

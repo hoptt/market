@@ -1,3 +1,5 @@
+"use client";
+
 import "@toast-ui/editor/dist/toastui-editor.css";
 import "@toast-ui/editor/dist/i18n/ko-kr";
 import { Viewer } from "@toast-ui/react-editor/";
