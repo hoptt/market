@@ -35,6 +35,7 @@ export function getMockProductData(defaultValue?: Partial<Product>) {
     purchaseBy:
       defaultValue?.purchaseBy ??
       (faker.datatype.boolean() ? faker.string.uuid() : null),
+    category: "",
   };
   return data;
 }
