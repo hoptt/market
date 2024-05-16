@@ -74,3 +74,4 @@ github-actions + EC2 배포 에 비해서 정형화되고 더 쉬운 플로우
 
 cypress 사용하여 E2E Test 진행
 Sentry 사용하여 상세한 에러 처리
+Storybook 사용하여 공통 컴포넌트 정의
