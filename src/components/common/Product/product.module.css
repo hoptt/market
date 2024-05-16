@@ -1,0 +1,7 @@
+.image {
+  background-size: 100%;
+  transition: background-size 0.3s ease;
+}
+.image:hover {
+  background-size: 105%;
+}

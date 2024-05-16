@@ -17,6 +17,7 @@ import PurchaseButton from "../_components/PurchaseButton";
 import ReviewItem from "../_components/ReviewItem";
 import ShopInfo from "../_components/ShopInfo";
 import { getProductApi } from "@/repository/products/getProductApi";
+import styles from "./shop.module.css";
 type Props = {
   params: { productId: string };
 };
@@ -66,7 +67,7 @@ export default async function ProductsDetailShop({
       <div className="border-b border-grey pb-3">
         <Text size="xl">상점 정보</Text>
       </div>
-      <div className="p-5">
+      <div className="p-5 border-b border-grey">
         <ShopInfo
           shop={shop}
           followerCount={followerCount}
@@ -74,20 +75,22 @@ export default async function ProductsDetailShop({
         />
       </div>
 
-      <FollowButton
-        isLoggedIn={!!myShopId}
-        initialIsFollowed={isFollowed}
-        shopId={shop.id}
-      />
+      {product.createdBy !== myShopId && (
+        <FollowButton
+          isLoggedIn={!!myShopId}
+          initialIsFollowed={isFollowed}
+          shopId={shop.id}
+        />
+      )}
 
       <div className="grid grid-cols-2 gap-2 mt-5">
         {shopProducts.slice(0, 2).map(({ id, title, price, imageUrls }) => (
           <Link
             key={id}
             href={`/products/${id}`}
-            className="relative aspect-square"
+            className="relative aspect-square overflow-hidden"
           >
-            <Image src={imageUrls[0]} alt="" fill />
+            <Image src={imageUrls[0]} alt="" fill className={styles.image} />
             <div className="absolute bottom-0 w-full bg-black text-center opacity-50">
               <Text color="white" size="sm">
                 {price.toLocaleString()}원
@@ -98,7 +101,10 @@ export default async function ProductsDetailShop({
       </div>
       {shopProducts.length > 2 && (
         <div>
-          <Link href="/" className="block border-b text-center py-3">
+          <Link
+            href={`/shops/${shop.id}/products`}
+            className="block border-b text-center py-3"
+          >
             <Text size="sm" color="red">
               {shopProducts.length - 2}개
             </Text>{" "}
@@ -109,9 +115,11 @@ export default async function ProductsDetailShop({
         </div>
       )}
       <div>
-        <div className="my-4 border-b pb-4">
-          <Text>상점후기</Text> <Text color="red">{reviewCount}</Text>
-        </div>
+        {reviewCount > 0 && (
+          <div className="my-4 border-b pb-4">
+            <Text>상점후기</Text> <Text color="red">{reviewCount}</Text>
+          </div>
+        )}
         <div>
           {reviews.slice(0, 3).map(({ id, contents, createdBy, createdAt }) => (
             <ReviewItem
@@ -122,24 +130,31 @@ export default async function ProductsDetailShop({
             />
           ))}
         </div>
-        <div>
-          <Link
-            href={`/shops/${shop.id}/reviews`}
-            className="block border-y text-center py-2"
-          >
-            <Text color="grey" size="sm">
-              상점후기 더 보기 {">"}
-            </Text>
-          </Link>
-        </div>
-        <div className="flex gap-1 my-7">
-          <ChatButton isLoggedIn={!!myShopId} shopId={shop.id} />
-          <PurchaseButton
-            isLoggedIn={!!myShopId}
-            isPurchased={!!product.purchaseBy}
-            productId={product.id}
-          />
-        </div>
+        {reviewCount > 0 && (
+          <div>
+            <Link
+              href={`/shops/${shop.id}/reviews`}
+              className="block border-y text-center py-2"
+            >
+              <Text color="grey" size="sm">
+                상점후기 더 보기 {">"}
+              </Text>
+            </Link>
+          </div>
+        )}
+
+        {/* {product.createdBy !== myShopId && (
+          <>
+            <div className="flex gap-1 my-7">
+              <ChatButton isLoggedIn={!!myShopId} shopId={shop.id} />
+              <PurchaseButton
+                isLoggedIn={!!myShopId}
+                isPurchased={!!product.purchaseBy}
+                productId={product.id}
+              />
+            </div>
+          </>
+        )} */}
       </div>
     </>
   );

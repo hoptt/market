@@ -12,7 +12,8 @@ export default async function Search({ searchParams }: Props) {
   const supabase = getServerComponentSupabase();
   const originalQuery = searchParams.query as string | undefined;
   if (!originalQuery) {
-    throw new Error("검색어가 없습니다");
+    return;
+    // throw new Error("검색어가 없습니다");
   }
   const query = decodeURIComponent(originalQuery);
 

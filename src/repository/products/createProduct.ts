@@ -20,6 +20,7 @@ export const createdProduct = async (
     .select()
     .single();
 
+  console.log("error", params);
   if (error) throw error;
 
   return { data: camelcaseKeys(data, { deep: true }) };

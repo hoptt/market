@@ -15,6 +15,7 @@ import { ChangeEventHandler, useEffect, useRef, useState } from "react";
 import { experimental_useFormState as useFormState } from "react-dom";
 import { createdProductAction, updateProductAction } from "./action";
 import SubmitButton from "./_components/SubmitButton";
+import { PRODUCT_CATEGORY } from "@/utils/etc";
 const MarkdownEditor = dynamic(
   () => import("@/components/shared/MarkdownEditor"),
   {
@@ -33,6 +34,7 @@ type Props = {
   district: string;
   description: string;
   tags: string[];
+  category: string;
 };
 export default function ProductForm({
   id: defaultId,
@@ -45,6 +47,7 @@ export default function ProductForm({
   district: defaultDistrict,
   description: defaultDescription,
   tags: defaultTags,
+  category: defaultCategory,
 }: Partial<Props>) {
   const router = useRouter();
   const formType = defaultId ? "edit" : "new";
@@ -188,6 +191,29 @@ export default function ProductForm({
               defaultValue={defaultTitle}
               required
             />
+          </div>
+        </div>
+        <div className="flex border-b border-grey-300 pb-7 pt-5">
+          <div className="w-40">
+            <Text size="lg">카테고리</Text>
+            <Text size="md" color="red">
+              *
+            </Text>
+          </div>
+          <div className="flex-1">
+            <select
+              required
+              name="category"
+              className="border py-1 px-2 w-32"
+              defaultValue={defaultCategory}
+            >
+              <option value="">선택</option>
+              {PRODUCT_CATEGORY.map((category) => (
+                <option key={category} value={category}>
+                  {category}
+                </option>
+              ))}
+            </select>
           </div>
         </div>
         <div className="flex border-b border-grey-300 pb-7 pt-5">
@@ -361,8 +387,7 @@ export default function ProductForm({
               initialValue={description}
               handleOnChange={(value) => setDescription(value)}
             />
-            <input
-              type="text"
+            <textarea
               name="description"
               value={description}
               required
@@ -375,7 +400,7 @@ export default function ProductForm({
         <Container>
           <div className="flex justify-end">
             <SubmitButton>
-              {formType === "edit" ? "수정" : "등록하기"}
+              {formType === "edit" ? "수정하기" : "등록하기"}
             </SubmitButton>
           </div>
         </Container>

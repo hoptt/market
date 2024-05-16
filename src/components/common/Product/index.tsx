@@ -1,8 +1,11 @@
+"use client";
 import dayjs from "dayjs";
 import Text from "../Text";
 import relativeTime from "dayjs/plugin/relativeTime";
 import "dayjs/locale/ko";
-
+import styles from "./product.module.css";
+import classNames from "classnames";
+import { useState, useEffect } from "react";
 interface Props {
   /** 상품이름 */
   title: string;
@@ -28,6 +31,11 @@ export default function Product({
   imageUrl,
   isSoldOut,
 }: Props) {
+  const [isClient, setIsClient] = useState(false);
+
+  useEffect(() => {
+    setIsClient(true);
+  }, []);
   return (
     <div className="flex flex-col border border-slate-300 relative">
       {isSoldOut && (
@@ -36,7 +44,7 @@ export default function Product({
         </div>
       )}
       <div
-        className="h-36 bg-cover bg-center"
+        className={classNames("h-36 bg-cover bg-center", styles.image)}
         style={{ backgroundImage: `url(${imageUrl})` }}
       />
       <div className="h-20 flex flex-col px-3 justify-center">
@@ -51,7 +59,7 @@ export default function Product({
             </Text>
           </div>
           <Text weight="light" color="grey" size="sm">
-            {dayjs(createdAt).fromNow()}
+            {isClient && dayjs(createdAt).fromNow()}
           </Text>
         </div>
       </div>

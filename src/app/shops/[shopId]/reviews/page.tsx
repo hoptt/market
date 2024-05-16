@@ -22,7 +22,7 @@ export default async function ShopReviews({ params: { shopId } }: Props) {
   return (
     <>
       <div className="mt-9 mb-5">
-        <Text size="lg">후기</Text>
+        <Text size="lg">후기 </Text>
         <Text size="lg" color="red">
           {reviewCount.toLocaleString()}개
         </Text>

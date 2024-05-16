@@ -182,7 +182,7 @@ export default function ShopLayout({
                             className="text-sm w-20"
                             isLoading={shopNameStatus === "LOADING"}
                           >
-                            확인
+                            저장
                           </Button>
                         </form>
                       )}
@@ -238,11 +238,10 @@ export default function ShopLayout({
                         </textarea>
                         <Button
                           size="xs"
-                          outline
                           className="w-20"
                           isLoading={shopIntroduceStatus === "LOADING"}
                         >
-                          확인
+                          저장
                         </Button>
                       </form>
                     )

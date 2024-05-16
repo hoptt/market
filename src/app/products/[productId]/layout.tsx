@@ -39,8 +39,8 @@ export default function ProductsDetailLayout({
         <Container>
           {title}
           <div className="flex border-t border-black pt-10">
-            <div className="w-4/6 pr-2">{detail}</div>
-            <div className="w-2/6 border-l border-grey pl-2">{shop}</div>
+            <div className="w-4/6 pr-4">{detail}</div>
+            <div className="w-2/6 border-l border-grey pl-4">{shop}</div>
           </div>
         </Container>
       </Wrapper>

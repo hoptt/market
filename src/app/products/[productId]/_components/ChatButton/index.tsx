@@ -22,9 +22,8 @@ export default function ChatButton({ isLoggedIn, shopId }: Props) {
 
   return (
     <Button
-      fullWidth
       color="orange"
-      className="flex justify-center items-center gap-1"
+      className="w-52 flex justify-center items-center"
       onClick={() => handleChat()}
     >
       <span style={{ fontSize: "1rem" }} className="material-symbols-outlined">

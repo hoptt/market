@@ -25,17 +25,21 @@ export default function Search() {
   return (
     <>
       <div className="relative flex-1" ref={ref}>
-        <div className="w-full border-2 border-red-500 px-4 py-2">
+        <div className="w-full border-b-2 border-slate-500 px-4 py-2">
           <form
             className="flex justify-between"
             onSubmit={(e) => {
               e.preventDefault();
-              addRecentKeyword(search);
-              router.push(`/search?query=${encodeURIComponent(search)}`);
+              if (!search) {
+                router.push(`/`);
+              } else {
+                addRecentKeyword(search);
+                router.push(`/search?query=${encodeURIComponent(search)}`);
+              }
             }}
           >
             <input
-              className="w-full text-sm font-light outline-0"
+              className="w-full font-light outline-0"
               type="text"
               placeholder="상품명, 상점명 입력"
               value={search}

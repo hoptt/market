@@ -10,7 +10,7 @@ type Props = {
 export default function SubmitButton({ children }: Props) {
   const { pending } = useFormStatus();
   return (
-    <Button color="red" className="w-28 h-12" isLoading={pending}>
+    <Button color="orange" className="w-28 h-12" isLoading={pending}>
       {children}
     </Button>
   );

@@ -60,7 +60,7 @@ export default async function ProductsDetailDetail({
           <Text size="lg" color="grey">
             거래 지역
           </Text>
-          <Text color="grey">{product.address}</Text>
+          <Text color="grey">{product.address ?? "[개인 연락]"}</Text>
         </div>
         <div className="flex-1 flex flex-col items-center gap-2">
           <Text size="lg" color="grey">

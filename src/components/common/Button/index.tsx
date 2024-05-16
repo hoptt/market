@@ -42,7 +42,7 @@ export default function Button({
       disabled={isLoading || props.disabled}
       className={classNames(
         props.className,
-        "disabled:opacity-50 relative",
+        "disabled:opacity-50 relative box-border",
         size === "xs" && "text-xs px-2",
         size === "sm" && "text-xs px-3 py-1",
         size === "md" && "text-base px-5 py-2",

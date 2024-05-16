@@ -1,9 +1,9 @@
-import { Black_Han_Sans } from "next/font/google";
 import Text from "@/components/common/Text";
 import Container from "@/components/layout/Container";
 import Wrapper from "@/components/layout/Wrapper";
-import Search from "./_components/Search";
+import { Black_Han_Sans } from "next/font/google";
 import Link from "next/link";
+import Search from "./_components/Search";
 
 type Props = {
   children: React.ReactNode;
@@ -18,7 +18,7 @@ export default function Header({ children }: Props) {
     <div className="sticky top-0 z-10 bg-white border-b">
       <Wrapper>
         <Container>
-          <div className="flex justify-between items-center py-8 gap-2">
+          <div className="flex justify-between items-center py-8 gap-8">
             <Link href="/" prefetch={false}>
               <Text size="4xl" className={blackHanSans.className}>
                 📣 중고장터

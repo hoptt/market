@@ -13,7 +13,8 @@ export default async function SearchShop({ searchParams }: Props) {
   const originalQuery = searchParams.query as string | undefined;
 
   if (!originalQuery) {
-    throw new Error("검색어가 없습니다");
+    return;
+    // throw new Error("검색어가 없습니다");
   }
   const query = decodeURIComponent(originalQuery);
   const [{ data: shops }, { data: count }] = await Promise.all([

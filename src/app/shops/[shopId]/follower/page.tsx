@@ -23,7 +23,7 @@ export default async function Follower({ params: { shopId } }: Props) {
   return (
     <>
       <div className="mt-9 mb-5">
-        <Text size="lg">팔로워</Text>
+        <Text size="lg">팔로워 </Text>
         <Text size="lg" color="red">
           {followerCount.toLocaleString()}개
         </Text>

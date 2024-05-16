@@ -38,11 +38,14 @@ export default function AutoComplete({ query, handleClose }: Props) {
   }, [handleSearch, query]);
 
   return (
-    <div className="flex flex-col h-full">
+    <div
+      className="flex flex-col h-full"
+      style={{ boxShadow: "0px 1px 5px -1px black" }}
+    >
       <div className="flex-1 overflow-hidden p-2">
         <Link
           href={`/search/shop?query=${encodeURIComponent(query)}`}
-          className="border-b border-grey-300 pb-2 mb-1 flex items-center cursor-pointer"
+          className="border-b border-slate-500 pb-2 mb-2 flex items-center cursor-pointer"
           onClick={() => handleClose()}
         >
           <span className="material-symbols-outlined">storefront</span>
@@ -67,13 +70,14 @@ export default function AutoComplete({ query, handleClose }: Props) {
           <div className="h-full overflow-auto pb-8">
             {keywords.map((keyword) => (
               <Link
+                className="hover:bg-gray-200 block p-1"
                 href={`/search?query=${encodeURIComponent(keyword)}`}
                 key={keyword}
                 prefetch={false}
               >
                 <Text
                   size="sm"
-                  className="block my-1 truncate"
+                  className="block truncate"
                   onClick={() => {
                     addRecentKeyword(keyword);
                     handleClose();

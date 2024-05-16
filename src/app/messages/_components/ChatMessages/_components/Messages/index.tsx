@@ -27,6 +27,7 @@ export default function Messages({ chatRoomId, myShopId }: Props) {
   const [messages, setMessages] = useState<ChatMessage[]>([]);
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [hasNewMessage, setHasNewMessage] = useState<boolean>(false);
+  const [hasNewMessageByMe, setHasNewMessageByMe] = useState<boolean>(false);
 
   useEffect(() => {
     (async () => {
@@ -34,7 +35,7 @@ export default function Messages({ chatRoomId, myShopId }: Props) {
         getChatMessages(supabase, {
           chatRoomId,
           fromIndex: 0,
-          toIndex: 10,
+          toIndex: 20,
         }),
         getChatMessageCount(supabase, chatRoomId),
       ]);
@@ -43,10 +44,6 @@ export default function Messages({ chatRoomId, myShopId }: Props) {
       const firstItemIndex = count - messages.length;
       setFirstItemIndex(firstItemIndex);
       setCount(count);
-      virtuoso.current?.scrollToIndex({
-        index: firstItemIndex,
-        align: "end",
-      });
     })();
   }, [chatRoomId]);
 
@@ -65,10 +62,16 @@ export default function Messages({ chatRoomId, myShopId }: Props) {
           camelcaseKeys(payload.new) as ChatMessage,
         ]);
         setCount((prev = 0) => prev + 1);
-        setHasNewMessage(true);
-        setTimeout(() => {
-          setHasNewMessage(false);
-        }, 3000);
+        const isMyMessage = payload.new.created_by === myShopId;
+        if (isMyMessage) {
+          setHasNewMessageByMe(true);
+        } else {
+          setHasNewMessage(true);
+
+          setTimeout(() => {
+            setHasNewMessage(false);
+          }, 3000);
+        }
       }
     );
     subscribeChat.subscribe();
@@ -78,16 +81,32 @@ export default function Messages({ chatRoomId, myShopId }: Props) {
     };
   }, [chatRoomId]);
 
+  useEffect(() => {
+    if (hasNewMessageByMe) {
+      setTimeout(() => {
+        virtuoso.current?.scrollToIndex({
+          index: messages.length - 1,
+          align: "end",
+        });
+        setHasNewMessageByMe(false);
+      }, 5);
+    }
+  }, [hasNewMessageByMe]);
+
   const handleGetPrevMessage = async (index: number) => {
     if (count === undefined) return;
+    if (!virtuoso.current) return;
+
+    if (index === 0) return;
     const fromIndex = count - index;
-    const toIndex = fromIndex + 10;
+    const toIndex = fromIndex + 20;
     setIsLoading(true);
     const { data } = await getChatMessages(supabase, {
       chatRoomId,
       fromIndex,
       toIndex,
     });
+
     setMessages((prev) => [...data.reverse(), ...prev]);
     setFirstItemIndex(Math.max(count - toIndex, 0));
     setIsLoading(false);
@@ -129,7 +148,7 @@ export default function Messages({ chatRoomId, myShopId }: Props) {
         </div>
       ) : (
         <Virtuoso
-          key={chatRoomId}
+          // key={chatRoomId}
           ref={virtuoso}
           firstItemIndex={firstItemIndex}
           initialTopMostItemIndex={messages.length - 1}
@@ -142,8 +161,8 @@ export default function Messages({ chatRoomId, myShopId }: Props) {
                 <div
                   className={classNames(
                     "flex flex-col m-2 px-2 py-1 w-72",
-                    isMyMessage && "border-l-2 border-slate-200",
-                    !isMyMessage &&
+                    !isMyMessage && "border-l-2 border-slate-200",
+                    isMyMessage &&
                       "border-r-2 border-slate-200 self-end text-right"
                   )}
                 >

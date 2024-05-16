@@ -31,12 +31,12 @@ export default function LikeList({ count, initialLikes = [], shopId }: Props) {
   return (
     <div>
       {likes.length === 0 ? (
-        <Text>찜한 상품이 없습니다.</Text>
+        <Text color="grey">찜한 상품이 없습니다.</Text>
       ) : (
         <>
           <div className="w-full grid grid-cols-5 gap-4">
             {likes.map(({ id, productId }) => (
-              <Link key={id} href={`/products/${id}`}>
+              <Link key={id} href={`/products/${productId}`}>
                 <LikeItem productId={productId} />
               </Link>
             ))}

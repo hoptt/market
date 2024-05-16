@@ -12,6 +12,9 @@ import LikeButton from "../_components/LikeButton";
 import ProductImage from "../_components/ProductImage";
 import PurchaseButton from "../_components/PurchaseButton";
 import { getProductApi } from "@/repository/products/getProductApi";
+import Button from "@/components/common/Button";
+import EditButton from "../_components/EditButton";
+import DeleteButton from "../_components/DeleteButton";
 dayjs.extend(relativeTime).locale("ko");
 type Props = {
   params: { productId: string };
@@ -54,30 +57,56 @@ export default async function ProductsDetailTitle({
             <Text size="3xl">{product.price.toLocaleString()}</Text>
             <Text size="xl"> 원</Text>
           </div>
-          <div className="border-t border-grey-500 py-4 flex gap-1 items-center">
-            <Text color="grey" className="flex">
-              <span
-                className="material-symbols-outlined"
-                style={{ fontSize: "1.25rem" }}
-              >
-                schedule
-              </span>
-            </Text>
-            <Text color="grey">{dayjs(product.createdAt).fromNow()}</Text>
+          <div className="border-t border-grey-500 py-4 flex flex-col gap-1">
+            <div className="flex gap-1">
+              <Text color="grey" className="flex">
+                <span
+                  className="material-symbols-outlined"
+                  style={{ fontSize: "1.25rem" }}
+                >
+                  schedule
+                </span>
+              </Text>
+              <Text color="grey">{dayjs(product.createdAt).fromNow()}</Text>
+            </div>
+
+            <Text color="grey">카테고리: {product.category}</Text>
+
+            {product.createdBy !== myShopId ? (
+              <LikeButton
+                initialIsLiked={isLiked}
+                isLoggedIn={!!myShopId}
+                productId={product.id}
+              />
+            ) : (
+              <div className="rounded bg-cyan-700 px-3 py-1 text-sm w-fit text-white mt-3">
+                내가 등록한 상품
+              </div>
+            )}
           </div>
         </div>
-        <div className="flex gap-2">
-          <LikeButton
-            initialIsLiked={isLiked}
-            isLoggedIn={!!myShopId}
-            productId={product.id}
-          />
-          <ChatButton isLoggedIn={!!myShopId} shopId={shop.id} />
-          <PurchaseButton
-            isLoggedIn={!!myShopId}
-            isPurchased={!!product.purchaseBy}
-            productId={product.id}
-          />
+        <div className="flex justify-end gap-2">
+          {product.createdBy === myShopId ? (
+            <>
+              <EditButton
+                productId={product.id}
+                isPurchased={!!product.purchaseBy}
+              />
+              <DeleteButton
+                productId={product.id}
+                isPurchased={!!product.purchaseBy}
+              />
+            </>
+          ) : (
+            <>
+              <ChatButton isLoggedIn={!!myShopId} shopId={shop.id} />
+              <PurchaseButton
+                isLoggedIn={!!myShopId}
+                isPurchased={!!product.purchaseBy}
+                productId={product.id}
+              />
+            </>
+          )}
         </div>
       </div>
     </div>

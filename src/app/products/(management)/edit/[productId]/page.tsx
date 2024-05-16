@@ -29,7 +29,7 @@ export default async function ProductEdit({ params: { productId } }: Props) {
   }
 
   const { data: product } = await getProduct(supabase, productId);
-  const [city, district] = product.address.split(" ");
+  const [city, district] = (product.address || "").split(" ");
   return (
     <ProductForm
       id={product.id}
@@ -42,6 +42,7 @@ export default async function ProductEdit({ params: { productId } }: Props) {
       district={district}
       description={product.description}
       tags={product.tags || undefined}
+      category={product.category}
     />
   );
 }

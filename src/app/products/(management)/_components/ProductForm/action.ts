@@ -1,6 +1,6 @@
 "use server";
 
-import { createdProduct } from "@/repository/products/createProduct";
+import { createdProductApi } from "@/repository/products/createProductApi";
 import { updateProduct } from "@/repository/products/updateProduct";
 import getServerComponentSupabase from "@/utils/supabase/getServerComponentSupabase";
 import { revalidateTag } from "next/cache";
@@ -22,20 +22,22 @@ export async function createdProductAction(
     const price = parseInt(formData.get("price") as string);
     const city = formData.get("city");
     const district = formData.get("district");
-    const address = `${city} ${district}`;
+    const address = city && district ? `${city} ${district}` : null;
     const description = formData.get("description") as string;
     const isChangeable = formData.get("isChangeable") === "y";
     const isUsed = formData.get("isUsed") === "y";
+    const category = formData.get("category") as string;
 
-    const { data } = await createdProduct(supabase, {
+    const { data } = await createdProductApi({
       title,
       price,
       address,
       description,
       isChangeable,
       isUsed,
-      tags,
+      tags: tags.length > 0 ? tags : null,
       imageUrls,
+      category,
     });
     return {
       status: "success",
@@ -67,10 +69,11 @@ export async function updateProductAction(
     const price = parseInt(formData.get("price") as string);
     const city = formData.get("city");
     const district = formData.get("district");
-    const address = `${city} ${district}`;
+    const address = city && district ? `${city} ${district}` : null;
     const description = formData.get("description") as string;
     const isChangeable = formData.get("isChangeable") === "y";
     const isUsed = formData.get("isUsed") === "y";
+    const category = formData.get("category") as string;
 
     const { data } = await updateProduct(supabase, {
       id,
@@ -80,8 +83,9 @@ export async function updateProductAction(
       description,
       isChangeable,
       isUsed,
-      tags,
+      tags: tags.length > 0 ? tags : null,
       imageUrls,
+      category,
     });
     return {
       status: "success",

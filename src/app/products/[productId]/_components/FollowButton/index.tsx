@@ -36,7 +36,12 @@ export default function FollowButton({
     }
   };
   return (
-    <Button color="grey" fullWidth onClick={handleToggleFollow}>
+    <Button
+      outline={!isFollowed}
+      color="grey"
+      fullWidth
+      onClick={handleToggleFollow}
+    >
       <Text color="black" className="flex justify-center items-center gap-1">
         <span className="material-symbols-outlined">
           {isFollowed ? "person_remove" : "person_add"}

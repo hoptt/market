@@ -1,10 +1,11 @@
 "use client";
-import Button from "@/components/common/Button";
 import Text from "@/components/common/Text";
 import { createLike } from "@/repository/likes/createLike";
 import { deleteLike } from "@/repository/likes/deleteLike";
 import supabase from "@/utils/supabase/browserSupabase";
 import { useState } from "react";
+import styles from "./like.module.css";
+import classNames from "classnames";
 
 type Props = {
   initialIsLiked: boolean;
@@ -34,16 +35,17 @@ export default function LikeButton({
     }
   };
   return (
-    <Button
-      fullWidth
-      color="grey"
-      className="flex justify-center items-center gap-1"
-      onClick={() => handleToggleLike()}
-    >
-      <span style={{ fontSize: "1rem" }} className="material-symbols-outlined">
+    <>
+      <span
+        className={classNames(
+          "material-symbols-outlined cursor-pointer me-2 text-zinc-400 w-fit",
+          isLiked && styles.fill
+        )}
+        style={{ fontSize: "1.5rem" }}
+        onClick={() => handleToggleLike()}
+      >
         favorite
       </span>
-      <Text color="white">{isLiked ? "찜 취소" : "찜"}</Text>
-    </Button>
+    </>
   );
 }

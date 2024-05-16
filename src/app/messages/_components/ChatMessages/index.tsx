@@ -37,7 +37,7 @@ export default function ChatMessages({
   }, [counterShopId]);
   const handleSubmitMessage: FormEventHandler<HTMLFormElement> = async (e) => {
     e.preventDefault();
-    if (ref.current) {
+    if (ref.current && ref.current.value) {
       await createChatMessage(supabase, {
         chatRoomId,
         message: ref.current.value,

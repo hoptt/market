@@ -48,7 +48,7 @@ export default function SearchResult({
           <Text size="lg" color="red">
             {query}
           </Text>
-          <Text size="lg">의 검색 결과</Text>
+          <Text size="lg"> 의 검색 결과</Text>
         </div>
         <div className="grid grid-cols-5 gap-4 my-3">
           {products.length === 0

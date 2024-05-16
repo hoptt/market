@@ -7,10 +7,15 @@ import { useEffect, useState } from "react";
 import Spinner from "@/components/common/Spinner";
 import { getMe } from "@/repository/me/getMe";
 import supabase from "@/utils/supabase/browserSupabase";
+import { getShop } from "@/repository/shop/getShop";
+import Link from "next/link";
+import { Shop } from "@/types";
 
 export default function Login() {
   const [showModal, setShowModal] = useState(false);
   const [isLoggedIn, setIsLoggedIn] = useState<boolean | undefined>();
+  const [shop, setShop] = useState<Shop>();
+
   useEffect(() => {
     if (showModal) {
       disablePageScroll();
@@ -24,6 +29,9 @@ export default function Login() {
       const {
         data: { shopId },
       } = await getMe(supabase);
+      if (!shopId) return setIsLoggedIn(false);
+      const { data: shopInfo } = await getShop(supabase, shopId);
+      setShop(shopInfo);
       setIsLoggedIn(!!shopId);
     })();
   }, []);
@@ -48,14 +56,22 @@ export default function Login() {
           로그인 / 회원가입
         </Text>
       ) : (
-        <Text
-          size="sm"
-          color="grey"
-          onClick={handleLogout}
-          className="cursor-pointer"
-        >
-          로그아웃
-        </Text>
+        <div className="flex gap-3 items-center">
+          <span className="material-symbols-outlined">person</span>
+          <Link href={`/shops/${shop!.id}`}>
+            <Text color="black" size="sm">
+              {shop!.name}
+            </Text>
+          </Link>
+          <Text
+            size="sm"
+            color="grey"
+            onClick={handleLogout}
+            className="cursor-pointer"
+          >
+            로그아웃
+          </Text>
+        </div>
       )}
 
       {showModal && (

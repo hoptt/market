@@ -2,7 +2,7 @@ export type Product = {
   id: string;
   title: string;
   price: number;
-  address: string;
+  address: string | null;
   description: string;
   imageUrls: string[];
   isChangeable: boolean;
@@ -11,6 +11,7 @@ export type Product = {
   createdAt: string;
   createdBy: string;
   purchaseBy: string | null;
+  category: string;
 };
 
 export type Shop = {
@@ -56,4 +57,9 @@ export type ChatMessage = {
   chatRoom: string;
   message: string;
   createdBy: string;
+};
+
+export type ErrorType = {
+  message: string;
+  success: boolean;
 };

@@ -35,7 +35,6 @@ export default async function Messages({ params: { chatRoomId } }: Props) {
 
   const currentChatRoomId = chatRoomId?.[0] || "";
   const currentChatRoom = chatRooms.find(({ id }) => id === currentChatRoomId);
-  console.log("ABC:", currentChatRoomId);
 
   return (
     <Wrapper className="bg-gray-100">

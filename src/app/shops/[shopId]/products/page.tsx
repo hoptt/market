@@ -22,7 +22,7 @@ export default async function ShopProducts({ params: { shopId } }: Props) {
   return (
     <>
       <div className="mt-9 mb-5">
-        <Text size="lg">상품</Text>
+        <Text size="lg">상품 </Text>
         <Text size="lg" color="red">
           {productCount.toLocaleString()}개
         </Text>

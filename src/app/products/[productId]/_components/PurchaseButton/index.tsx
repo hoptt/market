@@ -26,10 +26,9 @@ export default function PurchaseButton({
   };
   return (
     <Button
-      fullWidth
       disabled={isPurchased}
       color="red"
-      className="flex justify-center items-center gap-1"
+      className="w-52 flex justify-center items-center"
       onClick={() => handlePurchase()}
     >
       <Text color="white">{isPurchased ? "판매완료" : "바로구매"}</Text>

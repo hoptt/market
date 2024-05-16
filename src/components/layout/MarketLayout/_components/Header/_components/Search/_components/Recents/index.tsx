@@ -31,10 +31,13 @@ export default function Recent({ handleClose }: Props) {
   }, []);
 
   return (
-    <div className="flex flex-col h-full">
+    <div
+      className="flex flex-col h-full"
+      style={{ boxShadow: "0px 1px 5px -1px black" }}
+    >
       <div className="flex-1 overflow-hidden p-2">
-        <div className="border-b border-red-500 pb-1 mb-2">
-          <Text size="sm" color="red" weight="bold">
+        <div className="border-b border-slate-500 pb-1 mb-2">
+          <Text size="sm" color="black" weight="bold">
             최근 검색어
           </Text>
         </div>
@@ -47,12 +50,13 @@ export default function Recent({ handleClose }: Props) {
             {recents.map((recent) => (
               <Link
                 href={`/search?query=${encodeURIComponent(recent)}`}
+                className="hover:bg-gray-200 block p-1"
                 key={recent}
                 prefetch={false}
               >
                 <Text
                   size="sm"
-                  className="block my-1 truncate"
+                  className="block truncate"
                   onClick={() => {
                     addRecentKeyword(recent);
                     handleClose();

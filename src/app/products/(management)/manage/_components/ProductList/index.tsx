@@ -13,6 +13,7 @@ import Link from "next/link";
 import supabase from "@/utils/supabase/browserSupabase";
 import { deleteProduct } from "@/repository/products/deleteProduct";
 import Image from "next/image";
+import { useRouter } from "next/navigation";
 
 dayjs.extend(relativeTime).locale("ko");
 
@@ -26,6 +27,7 @@ export default function ProductList({
   count,
   shopId,
 }: Props) {
+  const router = useRouter();
   const [currentPage, setCurrentPage] = useState(1);
   const [products, setProducts] = useState(initialProducts);
 
@@ -63,9 +65,13 @@ export default function ProductList({
           {products.map(
             ({ id, imageUrls, title, purchaseBy, price, createdAt }) => (
               <div key={id} className="flex text-center border-y-2 my-4 py-2">
-                <div className="w-28 h-28 relative">
+                <Link
+                  href={`/products/${id}`}
+                  className="w-28 h-28 relative cursor-pointer"
+                  prefetch={false}
+                >
                   <Image src={imageUrls[0]} alt={title} fill />
-                </div>
+                </Link>
                 <div className="w-28 flex justify-center items-center">
                   <Text>{!!purchaseBy ? "판매완료" : "판매중"}</Text>
                 </div>
@@ -83,7 +89,12 @@ export default function ProductList({
                 <div className="w-28 flex justify-center items-center">
                   <div className="flex gap-2">
                     <Link href={`/products/edit/${id}`}>
-                      <Button size="sm" color="orange" className="h-8 w-15">
+                      <Button
+                        size="sm"
+                        color="orange"
+                        className="h-8 w-15"
+                        disabled={!!purchaseBy}
+                      >
                         수정
                       </Button>
                     </Link>
